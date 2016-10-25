@@ -1,8 +1,9 @@
 ## 基于Bootstrap的模态框插件
 [github](https://github.com/hzwy23/Hmodal)
 
-```javascript
+
 	## 示例一 ,确认框
+```javascript
 	$.Hconfirm({
 
 		#显示框的高度	
@@ -18,21 +19,24 @@
         callback:function(){console.log("submit")}
 
     })
-
-
-	## 示例二,弹出框
-	$.Hmodal({
-
-		#弹出框高度
+```
+## 示例二,弹出框
+```javascript
+    $.Hmodal({
         height:"420px",
-
-        #弹出框宽度
         width:"600px",
-
-        #弹出框中内容
-        body:"<div><span>hello world</span></div>",
+        body:"<div><form>" +
+            "<div>hello world 1</div>" +
+            "<div>hello world 2</div>" +
+            "<div class='h-modal-footer'>" +
+            "<button class='btn btn-danger cancel'>关闭</button>" +
+            "<button class='btn btn-primary submit'>提交</button></div>" +
+            "</form></div>",
     })
 ```
+>Hmodal函数会主动将h-modal-footer中的内容添加到弹出框的底部
+>button中添加cancel类,Hmodal会主动绑定关闭弹出窗口
+>button中添加submit类,会绑定submit默认的提交方式,如果在Hmodal参数中指定callback函数,则会执行回调函数
 
 ##可供选择参数:
 
