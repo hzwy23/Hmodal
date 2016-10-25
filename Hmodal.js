@@ -14,8 +14,6 @@
                 headerFontColor:"white",
 
                 body:"",
-
-                footer:"",
             }
             $.extend(true,__DEFAULT,param)
 
