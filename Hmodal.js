@@ -14,6 +14,8 @@
                 headerFontColor:"white",
 
                 body:"",
+
+                footer:"",
             }
             $.extend(true,__DEFAULT,param)
 
@@ -22,7 +24,7 @@
                 var mframe='<div class="modal-dialog">'+
                     '<div class="modal-content" style="border: '+__DEFAULT.headerColor+' solid 2px; width: '+__DEFAULT.width+'; height: '+__DEFAULT.height+';">'+
                     '<div class="modal-header" style="background-color: '+__DEFAULT.headerColor+'; height: '+__DEFAULT.headerHeight+'; line-height: '+__DEFAULT.headerHeight+'; padding: 0px;">'+
-                    '<button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="height: '+__DEFAULT.headerHeight+'; line-height: '+__DEFAULT.headerHeight+'; width: 30px; padding: 0px; margin-top: 1px;">×</button>'+
+                    '<button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="height: '+__DEFAULT.headerHeight+'; line-height: '+__DEFAULT.headerHeight+'; width: 30px; padding: 0px;">×</button>'+
                     '<h4 class="modal-title" style="margin-left: 15px;height: '+__DEFAULT.headerFontSize+';color: '+__DEFAULT.headerFontColor+'; line-height: '+__DEFAULT.headerHeight+';font-weight: 600; font-size: '+__DEFAULT.headerFontSize+'">'+__DEFAULT.header+'</h4>'+
                     '</div>'+
                     '<div class="modal-body" style="width: '+__DEFAULT.width+'; overflow-y: auto">'+__DEFAULT.body+'</div>'+
@@ -197,7 +199,7 @@
                 var mframe='<div class="modal-dialog">'+
                     '<div class="modal-content" style="border: '+__DEFAULT.headerColor+' solid 2px; width: '+__DEFAULT.width+'; height: '+__DEFAULT.height+';">'+
                     '<div class="modal-header" style="background-color: '+__DEFAULT.headerColor+'; height: '+__DEFAULT.headerHeight+'; line-height: '+__DEFAULT.headerHeight+'; padding: 0px;">'+
-                    '<button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="height: '+__DEFAULT.headerHeight+'; line-height: '+__DEFAULT.headerHeight+'; width: 30px; padding: 0px; margin-top: 1px;">×</button>'+
+                    '<button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="height: '+__DEFAULT.headerHeight+'; line-height: '+__DEFAULT.headerHeight+'; width: 30px; padding: 0px;">×</button>'+
                     '<h4 class="modal-title" style="margin-left: 15px;height: '+__DEFAULT.headerFontSize+';color: '+__DEFAULT.headerFontColor+'; line-height: '+__DEFAULT.headerHeight+';font-weight: 600; font-size: '+__DEFAULT.headerFontSize+'">'+__DEFAULT.header+'</h4>'+
                     '</div>'+
                     '<div class="modal-body" style="width: '+__DEFAULT.width+'; overflow-y: auto">'+__DEFAULT.body+'</div>'+
@@ -308,6 +310,7 @@
                     $(getObj(getObj(hmode,"modal-footer"),"submit","button")).on("click",function(){
                         console.log("defined callback, submit")
                         __DEFAULT.callback()
+                        $(hmode).remove()
                     })
                 }
             }
@@ -350,6 +353,6 @@
                 a=0;
                 $(getObj(hmode,"modal-header")).css({"cursor":"default"})
             })
-        }
+        },
     })
 }(jQuery));
