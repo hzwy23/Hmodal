@@ -1,4 +1,5 @@
 (function($){
+
     $.extend({
         Hmodal:function(param){
             var __DEFAULT = {
@@ -9,7 +10,7 @@
 
                 header:"弹框信息",
                 headerHeight:"30px",
-                headerColor :"#31708f",
+                headerColor :"#009966",
                 headerFontSize:"14px",
                 headerFontColor:"white",
 
@@ -24,19 +25,18 @@
                 var mframe='<div class="modal-dialog">'+
                     '<div class="modal-content" style="border: '+__DEFAULT.headerColor+' solid 2px; width: '+__DEFAULT.width+'; height: '+__DEFAULT.height+';">'+
                     '<div class="modal-header" style="background-color: '+__DEFAULT.headerColor+'; height: '+__DEFAULT.headerHeight+'; line-height: '+__DEFAULT.headerHeight+'; padding: 0px;">'+
-                    '<button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="height: '+__DEFAULT.headerHeight+'; line-height: '+__DEFAULT.headerHeight+'; width: 30px; padding: 0px;">×</button>'+
+                    '<button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="height: '+__DEFAULT.headerHeight+'; line-height: '+__DEFAULT.headerHeight+'; width: 30px; padding-top: 2px;">×</button>'+
                     '<h4 class="modal-title" style="margin-left: 15px;height: '+__DEFAULT.headerFontSize+';color: '+__DEFAULT.headerFontColor+'; line-height: '+__DEFAULT.headerHeight+';font-weight: 600; font-size: '+__DEFAULT.headerFontSize+'">'+__DEFAULT.header+'</h4>'+
                     '</div>'+
                     '<div class="modal-body" style="width: '+__DEFAULT.width+'; overflow-y: auto">'+__DEFAULT.body+'</div>'+
                     '<div class="modal-footer btn-group-sm">'+
-                    '<button type="button" class="btn btn-danger cancel" data-dismiss="modal">关闭</button>'+
-                    '<button type="button" class="btn btn-primary submit">提交</button>'+
+                    '<button type="button" class="btn btn-danger cancel" data-dismiss="modal"><i class="icon-remove"></i>&nbsp;关闭</button>'+
+                    '<button type="button" class="btn btn-primary submit"><i class="icon-ok"></i>&nbsp;提交</button>'+
                     '</div>' +
                     '</div>' +
                     '</div>';
                 return mframe;
             }
-
             //显示弹出框
             function showModal(mframe){
                 var hmod=document.createElement("div");
@@ -85,10 +85,11 @@
                 var wh = $(window).height();
                 var mw = $(getObj(mod,"modal-content")).width()
                 var mh = $(getObj(mod,"modal-content")).height()
-                var modifyY = (wh - mh)/2
+                //var modifyY = (wh - 2*mh)/2
                 var modifyX = (ww - mw)/2
-                $(getObj(mod,"modal-content")).offset({left:modifyX})
-
+                $(getObj(mod,"modal-content")).offset({
+                    left:modifyX
+                })
             }
 
             //
@@ -117,7 +118,7 @@
             }else{
                 $(getObj(hmode,"modal-footer")).html($(footer).html())
                 $(footer).remove()
-                if (__DEFAULT.callback == ""){
+                if (__DEFAULT.callback == "") {
                     $(getObj(getObj(hmode,"modal-footer"),"submit","button")).on("click",function(){
                         console.log("no callback found, default submit")
                         $(hmode).remove()
@@ -126,21 +127,21 @@
                         console.log("no callback found, default cancel")
                         $(hmode).remove()
                     })
-                }else if (typeof __DEFAULT.callback == "function"){
+                } else if (typeof __DEFAULT.callback == "function"){
                     $(getObj(getObj(hmode,"modal-footer"),"cancel","button")).on("click",function(){
                         console.log("defined callback, cancel")
                         $(hmode).remove()
                     })
                     $(getObj(getObj(hmode,"modal-footer"),"submit","button")).on("click",function(){
                         console.log("defined callback, submit")
-                        __DEFAULT.callback()
+                        __DEFAULT.callback(hmode)
                     })
                 }
             }
 
             // preprocess function
             if (typeof  __DEFAULT.preprocess == "function"){
-                __DEFAULT.preprocess()
+                __DEFAULT.preprocess(hmode)
             }
 
 
@@ -186,11 +187,14 @@
 
                 header:"弹框信息",
                 headerHeight:"30px",
-                headerColor :"#31708f",
+                headerColor :"#009966",
                 headerFontSize:"14px",
                 headerFontColor:"white",
+
                 body:"",
                 footer:"",
+                cancelBtn:true,
+                submitBtn:true,
             }
             $.extend(true,__DEFAULT,param)
 
@@ -199,13 +203,13 @@
                 var mframe='<div class="modal-dialog">'+
                     '<div class="modal-content" style="border: '+__DEFAULT.headerColor+' solid 2px; width: '+__DEFAULT.width+'; height: '+__DEFAULT.height+';">'+
                     '<div class="modal-header" style="background-color: '+__DEFAULT.headerColor+'; height: '+__DEFAULT.headerHeight+'; line-height: '+__DEFAULT.headerHeight+'; padding: 0px;">'+
-                    '<button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="height: '+__DEFAULT.headerHeight+'; line-height: '+__DEFAULT.headerHeight+'; width: 30px; padding: 0px;">×</button>'+
-                    '<h4 class="modal-title" style="margin-left: 15px;height: '+__DEFAULT.headerFontSize+';color: '+__DEFAULT.headerFontColor+'; line-height: '+__DEFAULT.headerHeight+';font-weight: 600; font-size: '+__DEFAULT.headerFontSize+'">'+__DEFAULT.header+'</h4>'+
+                    '<button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="height: '+__DEFAULT.headerHeight+'; line-height: '+__DEFAULT.headerHeight+'; width: 30px; padding-top: 2px;">×</button>'+
+                    '<h4 class="modal-title" style="margin-left: 15px;height: '+__DEFAULT.headerFontSize+';color: '+__DEFAULT.headerFontColor+'; line-height: '+__DEFAULT.headerHeight+';font-weight: 600; font-size: '+__DEFAULT.headerFontSize+'; margin-right: 30px;">'+__DEFAULT.header+'</h4>'+
                     '</div>'+
                     '<div class="modal-body" style="width: '+__DEFAULT.width+'; overflow-y: auto">'+__DEFAULT.body+'</div>'+
                     '<div class="modal-footer btn-group-sm">'+
-                    '<button type="button" class="btn btn-danger cancel" data-dismiss="modal">关闭</button>'+
-                    '<button type="button" class="btn btn-primary submit">提交</button>'+
+                    '<button type="button" class="btn btn-danger cancel" data-dismiss="modal"><i class="icon-remove"></i>&nbsp;关闭</button>'+
+                    '<button type="button" class="btn btn-primary submit"><i class="icon-ok"></i>&nbsp;提交</button>'+
                     '</div>' +
                     '</div>' +
                     '</div>';
@@ -260,25 +264,35 @@
                 var wh = $(window).height();
                 var mw = $(getObj(mod,"modal-content")).width()
                 var mh = $(getObj(mod,"modal-content")).height()
-                var modifyY = (wh - mh)/2
+                var modifyY = (wh - 2*mh)/2
                 var modifyX = (ww - mw)/2
-                $(getObj(mod,"modal-content")).offset({left:modifyX})
+                $(getObj(mod,"modal-content")).offset({
+                    left:modifyX,
+                    top:modifyY
+                })
             }
 
+            function initfooter(mode){
+                if (!__DEFAULT.cancelBtn){
+                    $(getObj(mode,"cancel","button")).remove();
+                }
+                if (!__DEFAULT.submitBtn){
+                    $(getObj(mode,"submit","button")).remove();
+                }
+            }
 
             //
             var mframe =  init()
             var hmode = showModal(mframe)
             modifyBodyHeightAndWidth(hmode)
             modifyLocation(hmode);
+
             //close modal when click close button in right header
             $(getObj(hmode,"modal-header")).find("button").on("click",function(){
                 $(hmode).remove();
             })
 
-
             // init footer
-            //
             var footer = $(getObj(hmode,"modal-body")).find(".h-modal-footer")
             if ($(footer).find("button").html()==""){
                 console.log("can not found button in modal body content")
@@ -314,13 +328,11 @@
                     })
                 }
             }
-
+            initfooter(hmode)
             // preprocess function
             if (typeof  __DEFAULT.preprocess == "function"){
                 __DEFAULT.preprocess()
             }
-
-
             // 拖动绑定
             var d = "getSelection" in window?function(){
                 window.getSelection().removeAllRanges()
@@ -354,5 +366,103 @@
                 $(getObj(hmode,"modal-header")).css({"cursor":"default"})
             })
         },
+        HAjaxRequest:function(a){
+            var b={
+                type:"get",
+                url:"",
+                data:"",
+                cache:!0,
+                async:!1,
+                dataType:"json",
+                error:function(b){
+                    console.log(b.readyState,b.responseText,b.statusText)},
+                success:function(b){
+
+                }
+            };
+            $.extend(!0,b,a);
+
+            "delete"==b.type.toLowerCase()?(
+                b.data._Method="Delete",
+                    $.ajax({
+                        type:"post",
+                        url:b.url,
+                        cache:b.cache,
+                        async:b.async,
+                        data:b.data,
+                        dataType:b.dataType,
+                        error:function(a){b.error(a)},
+                        success:function(a){
+                            b.success(a)}
+                    })
+            ):$.ajax({
+                type:b.type,
+                url:b.url,
+                cache:b.cache,
+                async:b.async,
+                data:b.data,
+                dataType:b.dataType,
+                error:function(a){b.error(a)},
+                success:function(a){b.success(a)}
+            })
+        },
+        Notify:function(param){
+            var DEFAULT = {
+                icon:"glyphicon glyphicon-warning-sign",
+                caption:"",
+                title:"执行成功",
+                message:"执行成功",
+                content:"",
+                type:"success",
+                position:null,
+            }
+
+            $.extend(true,DEFAULT,param);
+
+            if (DEFAULT.caption !=""){
+                DEFAULT.title = DEFAULT.caption
+            }
+
+            if (DEFAULT.content !=""){
+                DEFAULT.message = DEFAULT.content
+            }
+
+            $.notify({
+                // options
+                icon: DEFAULT.icon,
+                title: DEFAULT.title,
+                message:DEFAULT.message,
+                url: '',
+                target: '_blank'
+            },{
+                // settings
+                element: 'body',
+                position: DEFAULT.position,
+                type: DEFAULT.type,
+                allow_dismiss: true,
+                newest_on_top: true,
+                showProgressbar: false,
+                placement: {
+                    from: "top",
+                    align: "right"
+                },
+                offset: 20,
+                spacing: 10,
+                z_index: 1031,
+                delay: 3000,
+                timer: 1000,
+                url_target: '_blank',
+                mouse_over: null,
+                animate: {
+                    enter: 'animated fadeInDown',
+                    exit: 'animated fadeOutUp'
+                },
+                onShow: null,
+                onShown: null,
+                onClose: null,
+                onClosed: null,
+                icon_type: 'class',
+            });
+        }
     })
 }(jQuery));
